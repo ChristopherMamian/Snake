@@ -10,3 +10,10 @@
 #content {
 	text-align: center;
 }
+
+.snake {
+	background-color:blue;
+}
+.snakeHead{
+	background-color:red;
+}
