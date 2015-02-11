@@ -1,4 +1,9 @@
-SNAKE = [];
+//Params
+LEFT=37;
+RIGHT=39;
+UP=38;
+DOWN=40;
+SNAKE=[];
 
 function draw_board(x,y){
 	var count=0;
@@ -16,16 +21,28 @@ function draw_board(x,y){
 }
 
 function draw_snake(){
-	//initialize the snake close to center
-	$("#content").find("#580").addClass("snakeHead");
-	//initialize snake with length of 3
-	$("#content").find("#579").addClass("snake");
-	$("#content").find("#578").addClass("snake");
+	//initialize the snake on div #580 (pretty close to center)
+	$("#content").find("#580").addClass('snakeHead');
+	//Initialize a 3 unit snake
+	$("#content").find("#579").addClass('snake');
+	$("#content").find("#578").addClass('snake');
 
 	//push divs into SNAKE array
 	SNAKE.push(578);
 	SNAKE.push(579);
 	SNAKE.push(580);
+
+}
+
+function play_game(){
+	genFruit();
+	move_snake();
+
+}
+
+function genFruit(){
+	var fruitID = Math.floor(Math.random()*1600)+1;
+	$("#content").find("#"+fruitID).addClass('fruit');
 }
 
 function move_snake(){
@@ -48,7 +65,7 @@ function move_snake(){
 	    currentMove = 'd';
 	  }
 	});
-	
+
 	var move = function(dir){
 		var currentID = SNAKE[SNAKE.length-1];
 
@@ -86,6 +103,7 @@ function move_snake(){
 			SNAKE=[];
 			currentMove='';
 		}
+
 		//Check whether snake is out of bounds
 		if (!($("#"+nextID).hasClass("box"))){
 			alert('Game over!');
@@ -97,6 +115,7 @@ function move_snake(){
 			SNAKE=[];
 			currentMove='';
 		}
+		
 		//update SNAKE array
 		for (var i=0;i<SNAKE.length;i++){
 			//remove snake from [i]
@@ -118,7 +137,9 @@ function move_snake(){
 }
 
 
-$(document).ready(function() {
+
+$(document).ready(function(){
 	draw_board(40,40);
 	draw_snake();
+	play_game();	
 });
